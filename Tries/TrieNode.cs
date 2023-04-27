@@ -11,14 +11,14 @@ namespace Tries
     internal class TrieNode
     {
         public char Letter { get; private set; }
-        public Dictionary<char, Trie> Children { get; private set; }
+        public Dictionary<char, TrieNode> Children { get; private set; }
         public bool isWord { get; set; }
 
         public TrieNode(char letter)
         {
             this.Letter = letter;
-            Children = new Dictionary<char, Trie>();
+            Children = new Dictionary<char, TrieNode>();
             isWord = false;
         }
-    }
+    }   
 }
