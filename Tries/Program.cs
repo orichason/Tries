@@ -13,8 +13,10 @@ namespace Tries
         {
             Trie Trie = new Trie();
 
-            Trie.Insert("hello");
-
+            Trie.Insert("baby");
+            Trie.Insert("hey");
+         
+            
             ;
 
         }

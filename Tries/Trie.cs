@@ -18,7 +18,7 @@ namespace Tries
             Insert(0, word, Head);
         }
 
-        public void Insert(int index, string word, TrieNode current)
+        private void Insert(int index, string word, TrieNode current)
         {
             if(index == word.Length - 1)
             {
@@ -38,6 +38,17 @@ namespace Tries
                 current.Children.Add(word[index], newNode); ;
                 Insert(index + 1, word, newNode);
             }
+        }
+
+        public void Remove(string prefix)
+        {
+
+       
+        }
+
+        private bool Remove(int index, string prefix, TrieNode current)
+        {
+
         }
 
     }
