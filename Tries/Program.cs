@@ -14,9 +14,9 @@ namespace Tries
             Trie Trie = new Trie();
 
             Trie.Insert("baby");
-            Trie.Insert("hey");
-         
-            
+            Trie.Insert("babe");
+
+            Trie.Remove("babe");
             ;
 
         }
