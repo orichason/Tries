@@ -17,6 +17,11 @@ namespace Tries
             Trie.Insert("babe");
 
             Trie.Remove("babe");
+
+            TrieNode searchNode = Trie.SearchNode("babe");
+
+          
+
             ;
 
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Tries
 {
 
-    internal class TrieNode
+    public class TrieNode
     {
         public char Letter { get; private set; }
         public Dictionary<char, TrieNode> Children { get; private set; }

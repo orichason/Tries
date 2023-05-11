@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 namespace Tries
 {
 
-    internal class Trie
+    public class Trie
     {
         TrieNode Head = new TrieNode('\0');
 
@@ -68,6 +70,26 @@ namespace Tries
             }
 
             else return false;
+        }
+
+        public TrieNode SearchNode(string word)
+        {
+            TrieNode current = Head;
+
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (current.Children.TryGetValue(word[i], out var nextNode))
+                {
+                    current = nextNode;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+
+            return current;
         }
 
     }
