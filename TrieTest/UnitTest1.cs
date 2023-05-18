@@ -1,16 +1,17 @@
+using NuGet.Frameworks;
+
 using System.Data;
+using System.Net;
 
 using Tries;
 
 
 namespace TrieTest
 {
-
-
     class Info
     {
-        private Info() 
-        {          
+        private Info()
+        {
             Dataset = File.ReadAllLines("..\\..\\..\\WordBank.txt");
         }
 
@@ -18,7 +19,6 @@ namespace TrieTest
 
         public static Info Instance { get; } = new Info();
 
-        //talk about singletons
     }
 
 
@@ -27,35 +27,70 @@ namespace TrieTest
     {
         [TestMethod]
         [DataRow("baby", "babe", "already")]
+        [DataRow("babe", "baby", "hey", "babes")]
+
         public void TrieInsert(params string[] strings)
         {
-
-            var data = Info.Instance.Dataset;
-
             Trie trie = new Trie();
 
             for (int i = 0; i < strings.Length; i++)
             {
                 trie.Insert(strings[i]);
 
-                Assert.IsNotNull(trie.SearchNode(strings[i]));
+                for (int j = 0; j <= i; j++)
+                {
+                    Assert.IsTrue(trie.Contains(strings[j]));
+                }
             }
         }
 
         [TestMethod]
-        [DataRow("hey", "sleep", "shmeep")]
-        public void ShouldntBeThere(params string[] strings)
+        [DataRow(5, 10)]
+        [DataRow(1, 20)]
+        [DataRow(2, 100)]
+        [DataRow(100, 1)]
+        public void RandomTrieInsert(int seed, int wordQuantity)
         {
+            Random random = new Random(seed);
 
+            var data = Info.Instance.Dataset;
+
+            string[] strings = new string[wordQuantity];
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                strings[i] = data[random.Next(0, data.Length)];
+            }
+
+            TrieInsert(strings);
         }
     }
 
+    [TestClass]
     public class RemoveTest : InsertTest
     {
         [TestMethod]
-
-        public void TrieRemove(string prefix)
+        [DataRow("babe", "babe", "baby", "hey", "babes")]
+        public void TrieRemove(string prefix, params string[] strings)
         {
+            Trie trie = new Trie();
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                trie.Insert(strings[i]);
+            }
+
+            trie.Remove(prefix);
+
+            Assert.IsFalse(trie.Contains(prefix));
+
+            for(int i = 0; i < strings.Length; i ++)
+            {
+                if (strings[i] != prefix)
+                {
+                    Assert.IsTrue(trie.Contains(strings[i]));
+                }
+            }
         }
 
     }

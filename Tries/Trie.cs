@@ -22,12 +22,11 @@ namespace Tries
 
         private void Insert(int index, string word, TrieNode current)
         {
-            if (index == word.Length - 1)
+            if (index == word.Length)
             {
                 current.isWord = true;
+                return;
             }
-
-            if (index == word.Length) return;
 
             if (current.Children.TryGetValue(word[index], out var nextNode))
             {
@@ -50,7 +49,12 @@ namespace Tries
 
         private bool Remove(int index, string word, TrieNode current)
         {
-            if (index == word.Length) return true;
+            if (index == word.Length)
+            {
+                current.isWord = false;
+                return true;
+
+            }
 
 
             if (current.Children.TryGetValue(word[index], out var nextNode))
@@ -90,6 +94,16 @@ namespace Tries
             }
 
             return current;
+        }
+
+        public bool Contains(string word)
+        {
+            TrieNode nodeLookingFor = SearchNode(word);
+
+            //var a = nodeLookingFor == null? '\0' : nodeLookingFor.Letter;
+
+            //if null return false, if not null check if isWord is true
+            return nodeLookingFor != null && nodeLookingFor.isWord;
         }
 
     }
