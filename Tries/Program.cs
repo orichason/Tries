@@ -13,14 +13,20 @@ namespace Tries
         {
             Trie Trie = new Trie();
 
-            Trie.Insert("baby");
+            Trie.Insert("her");
+            Trie.Insert("hello");
+            Trie.Insert("hells");
+            Trie.Insert("hand");
+            Trie.Insert("happy");
+
             Trie.Insert("babe");
+            Trie.Insert("baby");
 
-            Trie.Remove("babe");
 
-            TrieNode searchNode = Trie.SearchNode("babe");
 
-          
+            // searchNode = Trie.SearchNode("babe");
+
+            List<string> wordList = Trie.GetAllMatchingPrefix("ba");
 
             ;
 

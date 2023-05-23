@@ -1,3 +1,5 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using NuGet.Frameworks;
 
 using System.Data;
@@ -84,7 +86,7 @@ namespace TrieTest
 
             Assert.IsFalse(trie.Contains(prefix));
 
-            for(int i = 0; i < strings.Length; i ++)
+            for (int i = 0; i < strings.Length; i++)
             {
                 if (strings[i] != prefix)
                 {
@@ -93,5 +95,29 @@ namespace TrieTest
             }
         }
 
+    }
+
+    [TestClass]
+
+    public class SearchAllPrefix : InsertTest
+    {
+        [TestMethod]
+        [DataRow("ha","hello", "happy", "hatch", "bob","okay", "havanna")]
+        public void AllWordsReturned(string prefix, params string[] strings)
+        {
+            Trie trie = new Trie();
+
+            for (int i = 0; i < strings.Length; i++)
+            {
+                trie.Insert(strings[i]);
+            }
+
+            List<string> matchingPrefixList = trie.GetAllMatchingPrefix(prefix);
+
+            for (int i = 0; i < matchingPrefixList.Count; i++)
+            {
+                Assert.IsTrue(matchingPrefixList[i].Substring(0, prefix.Length) == prefix);
+            }
+        }
     }
 }

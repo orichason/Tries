@@ -106,5 +106,33 @@ namespace Tries
             return nodeLookingFor != null && nodeLookingFor.isWord;
         }
 
+        public List<string> GetAllMatchingPrefix(string word)
+        {
+            List<string> wordList = new List<string>();
+
+            TrieNode temp = SearchNode(word);
+            if (temp == null) return null;
+
+            DFS(temp, word, wordList);
+
+            return wordList;
+        }       
+
+        private void DFS /*(depth first search)*/ (TrieNode node,string prefix, List<string> wordList)
+        {
+            string temp = prefix;
+
+            foreach(var pair in node.Children)
+            {
+                prefix += pair.Key;
+                DFS(pair.Value, prefix, wordList);
+                if(pair.Value.isWord)
+                {
+                    wordList.Add(prefix);
+                }
+                prefix = temp;
+            }
+        }
+
     }
 }
